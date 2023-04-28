@@ -1,21 +1,32 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useRouter } from 'next/router'
+import { useQuery } from '@apollo/client';
 import Link from 'next/link';
-import { StyledWrapper, StyledRoute } from './styled';
-
-const count = 1;
+import { GET_BOOKMARKS } from '../../apollo/bookmarks';
+import { StyledWrapper, StyledRoute, StyledCount } from './styled';
 
 export const Routes = () => {
+    const router = useRouter()
+    const { data: bookmarksData } = useQuery(GET_BOOKMARKS);
+
+    const count = useMemo(() => (
+        bookmarksData.bookmarks.length || 0
+    ), [bookmarksData])
+
     return (
         <StyledWrapper>
-            <StyledRoute isActive={true}>
+            <StyledRoute
+                isActive={router.pathname === '/'}
+            >
                 <Link href='/'>Show all</Link>
             </StyledRoute>
 
-            <StyledRoute isActive={false}>
+            <StyledRoute
+                isActive={router.pathname === '/bookmarks'}
+            >
                 <Link href='/bookmarks'>Bookmarks</Link>
-                <span> {count}</span>
+                    <StyledCount>{count}</StyledCount>
             </StyledRoute>
-
         </StyledWrapper>
     );
 };

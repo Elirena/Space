@@ -5,10 +5,11 @@ export const StyledWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 0 auto 40px;
-  max-width: ${({ theme }) => theme.maxWidth};
+  width: ${({ theme }) => theme.maxWidth};
 `;
 
 export const StyledTitle = styled.span`
+  color: ${({theme }) => theme.colors.primaryTextColor};
   font-size: 32px;
   line-height: 38px;
 `;

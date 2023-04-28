@@ -1,22 +1,28 @@
 import styled from 'styled-components';
 
-export const StyledWrapper = styled.div`
-    display: inline-block;
-`;
-
 interface PropsI {
     isActive?: boolean
 }
 
+export const StyledWrapper = styled.div`
+    display: inline-block;
+`;
+
 export const StyledRoute = styled.span<PropsI>`${(props) => `
     ${props.isActive && `
-        border-radius: 8px;
         background-color: ${props.theme.bgColor.primary};
     `}
-    margin-right: 15px;
+    border-radius: 8px;
+    margin-left: 15px;
     padding: 15px;
     color: ${props.theme.colors.primaryTextColor};
     font-size: 16px;
     line-height: 19px;
 `}`;
 
+export const StyledCount = styled.span`
+    display: inline-block;
+    margin-left: 2px;
+    width: 16px;
+    text-align: right;
+`;

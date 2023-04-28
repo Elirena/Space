@@ -1,10 +1,18 @@
-import React from 'react';
-import { CardItem } from '../CardItem';
+import React, { FC } from 'react';
+import { CardItem, CardI } from '../CardItem';
 
-export const CardsList = () => {
+interface Props {
+    cards: CardI[]
+}
+
+export const CardsList: FC<Props> = ({ cards }) => {
     return (
         <div>
-            <CardItem />
+            {cards.map((card) =>
+                <CardItem
+                    card={card}
+                    key={card.id}/>
+            )}
         </div>
     );
 };

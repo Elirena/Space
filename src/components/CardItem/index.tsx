@@ -1,27 +1,64 @@
-import React from 'react';
-import { StyledWrapper, StyledTitle, StyledDetails, StyledText, StyledPress } from './styled';
-import { StarButton } from '../../components';
+import React, { FC, useMemo } from 'react';
+import { StyledWrapper, StyledTitle, StyledDate, StyledDetails, StyledText, StyledPress } from './styled';
+import { StarButton } from '../StarButton';
 
-export const CardItem = () => {
+export interface CardI {
+    id: string;
+    missionName: string;
+    launchDate: string;
+    details: string;
+    rocket: {
+        rocketName: string;
+    }
+    links: {
+        pressKit?: string;
+    }
+}
+
+export const CardItem: FC<{ card:CardI }> = ({ card}) => {
+    const {
+        missionName,
+        launchDate,
+        details,
+        links,
+        rocket: { rocketName }
+    } = card;
+
+   const date = useMemo(() => {
+       const D = new Date(1000 * Number(launchDate));
+       return new Intl.DateTimeFormat('en-GB', { dateStyle: 'long'}).format(D);
+   }, [launchDate])
+
     return (
         <StyledWrapper>
             <StyledTitle>
-               <span>Crew Dragon In Flight Abort Test</span>
-                <StarButton />
+               <span>{missionName}</span>
+                <StarButton card={card} />
             </StyledTitle>
+
             <div>
-                <span>25 March 2006</span>
-                <span>Falcon 9</span>
+                {launchDate &&
+                    <StyledDate>{date}</StyledDate>
+                }
+                {rocketName &&
+                    <span>{rocketName}</span>
+                }
             </div>
-            <StyledDetails>
-                Details
-            </StyledDetails>
-            <StyledText>
-                SpaceX will launch a Crew Dragon capsule from LC-39A, KSC on a fully fueled Falcon 9 rocket and then trigger the launch escape system during the period of maximum dynamic pressure. As part of NASA'a Commercial Crew Integrated Capability program (CCiCap) this test will contribute valuable data to help validate Crew Dragon and its launch abort system. The Crew Dragon will be recovered by GO Searcher after splashdown in...
-            </StyledText>
-            <StyledPress>
-                Press kit
-            </StyledPress>
+            {details &&
+                <>
+                    <StyledDetails>
+                        Details
+                    </StyledDetails>
+                    <StyledText>
+                        {details}
+                    </StyledText>
+                </>
+            }
+            {links.pressKit &&
+                <StyledPress href={links.pressKit}>
+                    Press kit
+                </StyledPress>
+            }
         </StyledWrapper>
     );
 };

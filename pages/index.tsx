@@ -1,6 +1,5 @@
 import { CardsWidget } from '../src/widgets';
 
-
 const Index = () => {
     return (
         <div>

@@ -1,10 +1,21 @@
-import React from 'react';
-import { StyledButton } from './styled';
+import React, { FC } from 'react';
+import { StyledWrapper } from './styled';
 
-export const Button = () => {
+interface Props {
+    onClick(): void;
+    isLoading: boolean;
+}
+
+export const Button: FC<Props> = ({ onClick, isLoading }) => {
     return (
-        <StyledButton>
-            More
-        </StyledButton>
+        <StyledWrapper
+            onClick={onClick}
+            isLoading={isLoading}
+        >
+            {isLoading
+                ? `Loading...`
+                : `More`
+            }
+        </StyledWrapper>
     );
 };
