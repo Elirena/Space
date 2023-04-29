@@ -27,7 +27,7 @@ export const CardsWidget = () => {
             fetchMore({
                 variables: { limit, offset }}
             );
-        }},[cardsData?.launches.length]);
+        }},[cardsData?.launches.length, fetchMore, loading]);
 
     if (loading && !cardsData)
         return <Notifications message={'Loading...'} />;

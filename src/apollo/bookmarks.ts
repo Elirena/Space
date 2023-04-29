@@ -1,5 +1,4 @@
 import { gql, makeVar, ReactiveVar } from '@apollo/client';
-import bookmarks from '../../pages/bookmarks';
 import { CardI } from '../components/CardItem';
 
 /*** User bookmarks*/
